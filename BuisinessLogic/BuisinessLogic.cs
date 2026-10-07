@@ -1,5 +1,4 @@
 ﻿using Model;
-
 namespace BL;
 
 public class BusinessLogic
@@ -10,49 +9,33 @@ public class BusinessLogic
     {
         students.Add(student);
     }
-
-    public void DeleteStudent(int index)
+    public bool DeleteStudent(int index) //убрал Console.WriteLine для использования в Form, возвращает bool
     {
-        students.RemoveAt(index);
-    }
+        if (index < 0 || index >= students.Count)
+            return false;
 
+        students.RemoveAt(index);
+        return true;
+    }
+    //удалил метод ShowStudents, так как для Form и консоли нужны разные методы
+    //в каждом проекте свои методы для вывода студентов
     public List<Student> GetStudents()
     {
         return students;
     }
 
-    public void ShowStudents(List<Student> students)
+    public Dictionary<string, int> GetHistogram() //возвращает словарь вместо Console.WriteLine для использования в Form
     {
-        Console.WriteLine($"ID | Имя | Специальность | Группа");
-        for (int i = 0; i < students.Count; i++)
-        {
-            Console.WriteLine($"{i} | {students[i].Name} | {students[i].Speciality} | {students[i].Group}");
-        }
-    }
-
-    public void Gistogramma(List<Student> students)
-
-    {
-        Dictionary<string, int> studentsSpeciality = new Dictionary<string, int>();
+        Dictionary<string, int> result = new Dictionary<string, int>();
 
         foreach (Student student in students)
-
         {
-            if (!studentsSpeciality .ContainsKey(student.Speciality))
-
-            {
-                studentsSpeciality .Add(student.Speciality, 1);
-            }
-
+            if (!result.ContainsKey(student.Speciality))
+                result.Add(student.Speciality, 1);
             else
+                result[student.Speciality]++;
+        }
 
-            {
-                studentsSpeciality [student.Speciality]++;
-            }
-        }
-        foreach (KeyValuePair<string, int> Speciality in studentsSpeciality)
-        {
-            Console.WriteLine($"{Speciality.Key} - {Speciality.Value}");
-        }
+        return result;
     }
 }
