@@ -10,10 +10,6 @@ internal class Program
 
     static void Main(string[] args)
     {
-        foreach (Student student in TestStudents.Students)// можно убрать
-        {
-            logic.AddStudent(student);
-        }
 
         string[] items =
         {
@@ -100,12 +96,7 @@ internal class Program
         Console.Write("Группа: ");
         string group = Console.ReadLine() ?? "";
 
-        logic.AddStudent(new Student
-        {
-            Name = name,
-            Speciality = speciality,
-            Group = group
-        });
+        logic.AddStudent(name, speciality, group); //поправил для нового AddStudent
 
         Console.WriteLine("\nСтудент добавлен");
     }//метод добавления студента для консоли, использует AddStudent из BusinessLogic

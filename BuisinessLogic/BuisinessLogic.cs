@@ -5,9 +5,15 @@ public class BusinessLogic
 {
     private List<Student> students = new List<Student>();
 
-    public void AddStudent(Student student)
+    public void AddStudent(string newName, string newSpeciality, string newGroup) //метод теперь принимает не объект класса student, а три строки
+    //тем самым сохраняется инкапсуляция, до этого была ошибка, view обращалось к model,
+    //так как Student собиралсяя внутри view, теперь view просто отправляет данные в logic
     {
-        students.Add(student);
+        Student newStudent = new Student();
+        newStudent.Name = newName;
+        newStudent.Speciality = newSpeciality;
+        newStudent.Group = newGroup;
+        students.Add(newStudent);
     }
     public bool DeleteStudent(int index) //убрал Console.WriteLine для использования в Form, возвращает bool
     {
