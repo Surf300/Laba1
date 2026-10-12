@@ -5,9 +5,20 @@ public class BusinessLogic
 {
     private List<Student> students = new List<Student>();
 
-    public void AddStudent(Student student)
+    public bool AddStudent(string newName, string newSpeciality, string newGroup)//заменил метод, чтобы в проверка вводимых данных осуществлялась в логике
     {
-        students.Add(student);
+        if (string.IsNullOrWhiteSpace(newName) ||
+            string.IsNullOrWhiteSpace(newSpeciality) ||
+            string.IsNullOrWhiteSpace(newGroup))
+        {
+            return false;
+        }
+        Student newStudent = new Student();
+        newStudent.Name = newName;
+        newStudent.Speciality = newSpeciality;
+        newStudent.Group = newGroup;
+        students.Add(newStudent);
+        return true;
     }
     public bool DeleteStudent(int index) //убрал Console.WriteLine для использования в Form, возвращает bool
     {
@@ -19,9 +30,9 @@ public class BusinessLogic
     }
     //удалил метод ShowStudents, так как для Form и консоли нужны разные методы
     //в каждом проекте свои методы для вывода студентов
-    public List<Student> GetStudents()
+    public IReadOnlyList<Student> GetStudents()
     {
-        return students;
+        return students.AsReadOnly();
     }
 
     public Dictionary<string, int> GetHistogram() //возвращает словарь вместо Console.WriteLine для использования в Form

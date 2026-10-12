@@ -22,12 +22,13 @@ namespace WinFormsApp1
             using var form = new AddStudentForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                logic.AddStudent(new Student
+                bool added = logic.AddStudent(form.StudentName, form.Speciality, form.Group);
+
+                if (!added)
                 {
-                    Name = form.StudentName,
-                    Speciality = form.Speciality,
-                    Group = form.Group
-                });
+                    MessageBox.Show("Заполните все поля корректно");
+                    return;
+                }
                 RefreshTable();
             }
         }
