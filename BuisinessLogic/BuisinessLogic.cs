@@ -17,9 +17,10 @@ public class BusinessLogic
     }
     public bool DeleteStudent(int index) //убрал Console.WriteLine для использования в Form, возвращает bool
     {
-        if (index < 0 || index >= students.Count)
-            return false;
-
+        try
+        {
+            students.RemoveAt(index);
+        }
         students.RemoveAt(index);
         return true;
     }
